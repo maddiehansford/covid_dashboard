@@ -1,0 +1,11 @@
+{
+    "keys": 
+    {
+        "news": "YOUR API KEY GOES HERE!"
+    },
+    "misc": 
+    {
+        "location": "Exeter",
+        "location_type": "ltla"
+    }
+}

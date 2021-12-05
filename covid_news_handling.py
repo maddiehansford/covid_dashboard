@@ -1,9 +1,14 @@
 import requests
+import json
 from flask import Markup
+
+with open('config.json') as f:
+    data = json.load(f)
+    data = data["keys"]
 
 def news_API_request(covid_terms = "Covid COVID-19 coronavirus"):
     ##creates URL
-    api_key = '802f7a2482524e098d65e8ef11b331fc'
+    api_key = data["news"]
     base_url = 'https://newsapi.org/v2/everything?'
     final_url = base_url+"q="+covid_terms+"&apikey="+api_key
 

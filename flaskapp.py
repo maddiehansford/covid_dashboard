@@ -17,7 +17,7 @@ def home():
 
     return render_template('index.html', 
     title = Markup('<b>✻Covid Dashboard✻</b>'),
-    location = "Exeter",
+    location = data_list[4]["location"],
     local_7day_infections = data_list[0],
     nation_location = "England",
     national_7day_infections = data_list[1],
@@ -79,8 +79,16 @@ def notif_react():
         news_request = 'news' in request.args
         repeat_request = 'repeat' in request.args
         update_interval = get_update_seconds(update_time)
-        
+
+
         new_update = create_update(update_title, update_time, repeat_request, covid_data_request,news_request)
+        new_update['original_time'] = update_time
+        # for update in updates:
+        #     if new_update['original_time'] == update['original_time']:
+        #         update_interval +=2
+        #         print('new update')
+        #         print(scheduler.queue)
+        
         new_update['scheduler'] = schedule_covid_updates(update_interval,new_update['type'],repeat_request)
         updates.append(new_update) 
         return redirect('/index', code=302)
@@ -102,14 +110,14 @@ def create_update(title,time,repeat,covid_data,news):
         update_type = 'both'
     if covid_data is True and news is False:
         update_content += ' covid data.'
-        update_type = 'covid_data'
+        update_type = 'covid-data'
     if covid_data is False and news is True:
         update_content += ' news.'
         update_type = 'news'
 
     return {'title':title, 'content':update_content, 'repeat_time':time, 'type':update_type}
 
-def schedule_covid_updates(update_interval, update_name, repeat_request):
+def schedule_covid_updates(update_interval, update_name, repeat_request=False):
     return scheduler.enter(update_interval,1,update_excecute,(update_name,repeat_request))
     scheduler.run(blocking=False)
 

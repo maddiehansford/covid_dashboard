@@ -1,4 +1,9 @@
 from uk_covid19 import Cov19API
+import json
+
+with open('config.json') as f:
+    data = json.load(f)
+    data = data["misc"]
 
 #function 1
 def parse_csv_data(csv_filename:str) -> list:
@@ -30,7 +35,7 @@ def process_covid_csv_data(covid_csv_data) -> int:
 # process_covid_csv_data(parse_csv_data('nation_2021-10-28.csv'))
 
 #function 3
-def covid_API_request(location = 'Exeter', location_type = 'ltla'):
+def covid_API_request(location = data["location"], location_type = data["location_type"]):
     exeter_only = [
         'areaType='+location_type,
         'areaName='+location
@@ -103,6 +108,6 @@ def total_deaths_extract():
 
 def data_gatherer():
     ##gathers data and puts it in a list
-    return [local_7_days_extract(),national_7_days_extract(),hospital_cases_extract(),total_deaths_extract()]
+    return [local_7_days_extract(),national_7_days_extract(),hospital_cases_extract(),total_deaths_extract(), data]
 
 
