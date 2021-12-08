@@ -89,7 +89,7 @@ deactivate
 
 Now, reactivate your virtual environment by entering the following into the terminal:
 ```
-.venv/bin/activate
+source .venv/bin/activate
 ```
 
 Run the setup.py file by entering the following into the terminal, *including the period*:
