@@ -10,6 +10,18 @@ This project is a **covid dashboard** that displays current covid data and news 
 
 ### 1. Creating a virtual environment:
 
+In the terminal, enter the covid_dashboard
+``` 
+cd covid_dashboard
+```
+
+Check this with *pwd* command, 
+```
+pwd
+```
+root should end in */covid_dashboard*
+
+Create and enter the virtual environment
 ```
 python3 -m venv .venv
 source .venv/bin/activate
