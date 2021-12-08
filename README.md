@@ -8,14 +8,14 @@ Version: Python 3.9.7
 
 ## Installation
 
-1. Creating a virtual environment:
+### 1. Creating a virtual environment:
 
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-2. Installing requirements:
+### 2. Installing requirements:
 
 Try
 ```
@@ -32,17 +32,26 @@ pip3 install pytest
 
 ## Getting started tutorial
 
-## Testing
-
-1. How to run code:
+How to run code:
 ```
 python3 flaskapp.py
 ```
 
 Then open http://127.0.0.1:5000/ in chosen web browser.
 
+## Testing
 
-2. How to test code:
+Tests are located in the 'tests' folder, and include: 
+
+*test_flaskapp.py* that tests functions in the *flaskapp.py* module
+
+*test_covid_data_handler.py* that tests functions in the *covid_data_handler.py* module
+
+*test_covid_news_handler.py* that tests functions in the *covid_news_handling.py* module
+
+
+In order to run tests, enter the following into the terminal:
+
 ```
 pytest
 ```
@@ -54,4 +63,5 @@ Whether the tests have passed will appear in the terminal.
 
 ## Details
 Author: Madelene Hansford
+
 License: MIT License
