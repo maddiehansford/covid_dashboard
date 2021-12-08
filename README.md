@@ -15,16 +15,21 @@ In the terminal, enter the covid_dashboard
 cd covid_dashboard
 ```
 
-Check this with *pwd* command, 
+Check this with *pwd* command
 ```
 pwd
 ```
-root should end in */covid_dashboard*
+The root should end in */covid_dashboard*
 
 Create and enter the virtual environment
 ```
 python3 -m venv .venv
 source .venv/bin/activate
+```
+
+Your terminal prompt should now look something like this:
+```
+(.venv) maddiehansford@Maddies-MacBook covid_dashboard %
 ```
 
 ### 2. Installing requirements:
