@@ -34,12 +34,12 @@ Your terminal prompt should now look something like this:
 
 ### 2. Installing requirements:
 
-**Try**
+Install all the requirements from the requirements.txt file:
 ```
 pip3 install -r requirements.txt
 ```
 
-**If this fails, install requirements separately**
+If this fails, install requirements separately
 ```
 pip3 install flask
 pip3 install uk-covid19
@@ -58,13 +58,27 @@ Then open http://127.0.0.1:5000/ in chosen web browser.
 
 ## Testing
 
+### 1. Setting up the tests
+
+Make sure you are in the virtual environment and root folder of the project, which should look something like this:
+```
+(.venv) maddiehansford@Maddies-MacBook covid_dashboard %
+```
+
+Run the setup.py file by entering the following into the terminal, *including the period*:
+```
+pip install -e .
+```
+
+### 2. Running the tests
+
 Tests are located in the 'tests' folder, and include: 
 
-***test_flaskapp.py*** that tests functions in the ***flaskapp.py*** module
+***test_flaskapp.py*** that tests functions in the ***flaskapp.py*** module,
 
-***test_covid_data_handler.py*** that tests functions in the ***covid_data_handler.py*** module
+***test_covid_data_handler.py*** that tests functions in the ***covid_data_handler.py*** module,
 
-***test_covid_news_handler.py*** that tests functions in the ***covid_news_handling.py*** module
+***test_covid_news_handler.py*** that tests functions in the ***covid_news_handling.py*** module.
 
 
 **In order to run tests, enter the following into the terminal:**
