@@ -68,7 +68,7 @@ Then open http://127.0.0.1:5000/ in chosen web browser.
 
 3. Tick either the 'Update Covid data' box, the 'Update news articles' box, or both depending on what you would like updated.
 
-4. Click submit and the update appear in the top left corner, and will occur at your chosen time.
+4. Click 'submit' and the update appear in the top left corner, and will occur at your chosen time.
 
 5. Cancel an update or delete a news article by clicking the 'x' in the top right corner of the box.
 
