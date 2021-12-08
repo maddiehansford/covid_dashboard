@@ -81,6 +81,17 @@ Make sure you are in the virtual environment and root folder of the project, whi
 (.venv) maddiehansford@Maddies-MacBook covid_dashboard %
 ```
 
+You must now deactivate and then activate it again.
+Deactivate your virtual environment by entering the following into the terminal:
+```
+deactivate
+```
+
+Now, reactivate your virtual environment by entering the following into the terminal:
+```
+.venv/bin/activate
+```
+
 Run the setup.py file by entering the following into the terminal, *including the period*:
 ```
 pip install -e .
