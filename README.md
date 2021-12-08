@@ -17,12 +17,12 @@ source .venv/bin/activate
 
 ### 2. Installing requirements:
 
-Try
+**Try**
 ```
 pip3 install -r requirements.txt
 ```
 
-If this fails, install requirements separately
+**If this fails, install requirements separately**
 ```
 pip3 install flask
 pip3 install uk-covid19
@@ -32,22 +32,22 @@ pip3 install pytest
 
 ## Getting started tutorial
 
-How to run code:
+**How to run code:**
 ```
 python3 flaskapp.py
 ```
 
-Then open http://127.0.0.1:5000/ in chosen web browser.
+    Then open http://127.0.0.1:5000/ in chosen web browser.
 
 ## Testing
 
 Tests are located in the 'tests' folder, and include: 
 
-*test_flaskapp.py* that tests functions in the *flaskapp.py* module
+    ***test_flaskapp.py*** that tests functions in the ***flaskapp.py*** module
 
-*test_covid_data_handler.py* that tests functions in the *covid_data_handler.py* module
+    ***test_covid_data_handler.py*** that tests functions in the ***covid_data_handler.py*** module
 
-*test_covid_news_handler.py* that tests functions in the *covid_news_handling.py* module
+    ***test_covid_news_handler.py*** that tests functions in the ***covid_news_handling.py*** module
 
 
 **In order to run tests, enter the following into the terminal:**
@@ -56,7 +56,7 @@ Tests are located in the 'tests' folder, and include:
 pytest
 ```
 
-Whether the tests have passed will appear in the terminal.
+    Whether the tests have passed will appear in the terminal.
 
 ## Developer documentation
 
