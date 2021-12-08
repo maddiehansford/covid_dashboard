@@ -107,10 +107,12 @@ Whether the tests have passed will appear in the terminal.
 
 ## Developer documentation
 
-This can be found at:
-    docs/build/html
+Sphinx developer documentation can be found in:
+```
+docs/build/html
+```
 
-Open ***index.html*** in your chosen web browser
+Open ***index.html*** in your chosen web browser.
 
 ## Details
 
