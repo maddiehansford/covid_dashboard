@@ -1,10 +1,10 @@
 # README
 
 ## Introduction
-This project is a covid dashboard that displays current covid data and news taken from the uk-covid19 API. It also enables the user to update the data and news.
+This project is a **covid dashboard** that displays current covid data and news taken from the uk-covid19 API. It also enables the user to update the data and news.
 
 ## Prerequisites
-Version: Python 3.9.7
+**Version:** Python 3.9.7
 
 ## Installation
 
@@ -50,7 +50,7 @@ Tests are located in the 'tests' folder, and include:
 *test_covid_news_handler.py* that tests functions in the *covid_news_handling.py* module
 
 
-In order to run tests, enter the following into the terminal:
+**In order to run tests, enter the following into the terminal:**
 
 ```
 pytest
@@ -62,6 +62,11 @@ Whether the tests have passed will appear in the terminal.
 
 
 ## Details
-Author: Madelene Hansford
 
-License: MIT License
+**Author:** Madelene Hansford
+
+**License:** MIT License
+
+**Link to source:** https://github.com/maddiehansford/covid_dashboard
+
+**Acknowledgements:** Matt Collison, Hugo Barbosa
