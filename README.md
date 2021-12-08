@@ -7,12 +7,22 @@ This project is a covid dashboard that displays current covid data and news take
 Version: Python 3.9.7
 
 ## Installation
-Try:
+
+1. Creating a virtual environment:
+
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+2. Installing requirements:
+
+Try
 ```
 pip3 install -r requirements.txt
 ```
 
-If this fails, install requirements separately:
+If this fails, install requirements separately
 ```
 pip3 install flask
 pip3 install uk-covid19
@@ -24,19 +34,20 @@ pip3 install pytest
 
 ## Testing
 
-### How to run code:
+1. How to run code:
 ```
 python3 flaskapp.py
 ```
 
 Then open http://127.0.0.1:5000/ in chosen web browser.
 
-### How to test code:
+
+2. How to test code:
 ```
 pytest
 ```
 
-Whether the tests have passed or not will appear in the terminal.
+Whether the tests have passed will appear in the terminal.
 
 ## Developer documentation
 
