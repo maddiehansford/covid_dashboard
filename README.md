@@ -90,11 +90,11 @@ pip install -e .
 
 Tests are located in the 'tests' folder, and include: 
 
-***test_flaskapp.py*** that tests functions in the ***flaskapp.py*** module,
+- ***test_flaskapp.py*** that tests functions in the ***flaskapp.py*** module,
 
-***test_covid_data_handler.py*** that tests functions in the ***covid_data_handler.py*** module,
+- ***test_covid_data_handler.py*** that tests functions in the ***covid_data_handler.py*** module,
 
-***test_covid_news_handler.py*** that tests functions in the ***covid_news_handling.py*** module.
+- ***test_covid_news_handler.py*** that tests functions in the ***covid_news_handling.py*** module.
 
 
 **In order to run tests, enter the following into the terminal:**

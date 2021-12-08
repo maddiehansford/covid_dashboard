@@ -34,7 +34,8 @@ def home() -> str:
     deaths_total = "Total Deaths: " + str(data_list[3]),
     news_articles = news[0:4],
     image = "covidness4.gif",
-    updates = updates
+    updates = updates,
+    favicon = "static/images/favicon_tube.png"
     )
 
 @app.route("/index", methods = ['GET'])
