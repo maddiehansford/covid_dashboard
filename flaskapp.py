@@ -1,20 +1,29 @@
 from os import remove
+import datetime
+from datetime import timedelta ,datetime
 from flask import Flask, render_template, request, Markup, redirect
 from covid_data_handler import data_gatherer
 from covid_news_handling import news_API_request
 import json, sched, time
-import datetime
-from datetime import timedelta ,datetime
+import logging
 
 updates = []
 scheduler = sched.scheduler(time.time, time.sleep)
 app = Flask('__name__', template_folder = 'template')
 
+FORMAT = '%(levelname)s: %(asctime)s: %(message)s' 
+logging.basicConfig(filename='log_file.log', format=FORMAT, level=logging.INFO)
+
 @app.route("/")
 
-def home():
-    scheduler.run(blocking=False)
+def home() -> str: 
+    """This function is the main flask function that renders the index.html
+    webpage from ELE. 
 
+    Returns:
+        str: Front end displaying data from APIs
+    """    
+    scheduler.run(blocking=False)
     return render_template('index.html', 
     title = Markup('<b>✻Covid Dashboard✻</b>'),
     location = data_list[4]["location"],
@@ -31,46 +40,38 @@ def home():
 @app.route("/index", methods = ['GET'])
 
 def notif_react():
+    """This function when directed to /index extention.
+
+    Returns:
+        Response: Redirects page to /index when an update is created
+        str: Redirects to home function
+    """    
     scheduler.run(blocking=False)
     update_title = request.args.get('two')
     update_time  = request.args.get('update')
-    
-    ##This code kinda does nothing atm, will be kinda cool when time
-    ##till update works tho
-    # for update in updates:
-    #     new_time = get_update_seconds(update["original_time"])
-    #     update["content"] = update["content"].replace(str(time), str(new_time))
-    #     update["interval"] = new_time
-    
-    # while len(updates) > len(scheduler.queue):
-    #     removed_updated = updates.pop(0)
-    #     if removed_updated["repeat"] == True:
-    #         updates.append(removed_updated)
-    #         new_time = get_update_seconds(removed_updated["original_time"])
-    #         removed_updated["scheduler"] = schedule_covid_updates(new_time, removed_updated["title"])
-    
-    # print(scheduler.queue)
-    
     if 'notif' in request.args:
-        ##if cancel button clicked in news articles
+        #if cancel button clicked in news articles
+        logging.info('CANCELLED NEWS')
         title = request.args.get('notif')
+        # removes news from list
         for pos, val in enumerate(news):
             if pos < 5 and val['title'] == title:
-                ## removes news from list
                 news.pop(pos)
             pos += 1
 
     if 'update_item' in request.args:
-        ##if cancel button clicked in updates
+        #if cancel button clicked in updates
+        logging.info('CANCELLED UPDATE')
         title = request.args.get('update_item')
+        # cancels scheduled update & remove update from list
         for pos, val in enumerate(updates):
             if val['title'] == title:
-                ## cancels scheduled update & removes update from list
                 try:
-                    ##only if scheduled update hasn't been excecuted
+                    #only if scheduled update hasn't been excecuted
                     scheduler.cancel(val['scheduler'])
+                    logging.info('CANCELLED SCHEDULE')
                 except:
-                    pass
+                    logging.warning('SCHEDULED UPDATE ALREADY EXCECUTED')
                 updates.pop(pos)
                 print(scheduler.queue)
 
@@ -79,28 +80,32 @@ def notif_react():
         news_request = 'news' in request.args
         repeat_request = 'repeat' in request.args
         update_interval = get_update_seconds(update_time)
-
-
         new_update = create_update(update_title, update_time, repeat_request, covid_data_request,news_request)
-        new_update['original_time'] = update_time
-        # for update in updates:
-        #     if new_update['original_time'] == update['original_time']:
-        #         update_interval +=2
-        #         print('new update')
-        #         print(scheduler.queue)
-        
         new_update['scheduler'] = schedule_covid_updates(update_interval,new_update['type'],repeat_request)
-        updates.append(new_update) 
+        updates.append(new_update)
+        # redirects page to /index 
         return redirect('/index', code=302)
-
-
+    
     return home()
     
-def create_update(title,time,repeat,covid_data,news):
-    ##formats an update depending on which boxes have been ticked
+def create_update(title:str,time:str,repeat:bool,covid_data:bool,news:bool) -> dict:
+    """This method takes elements of an update and formats the update
+    description shown to the user, and also assesses the update type.
+
+    Args:
+        title (str): Title of update given by user
+        time (str): Time of update given by user
+        repeat (bool): True if update should be repeated
+        covid_data (bool): True if covid data should be updated
+        news (bool): True if news should be updated
+
+    Returns:
+        dict: The primary element of the update including title, 
+        formatted content and type
+    """
     update_content = Markup('<b>◴   </b>') + time
 
-    if repeat is True:
+    if repeat:
         update_content += ' Repeat scheduled update:'
     else:
         update_content += ' Scheduled update:'
@@ -115,50 +120,68 @@ def create_update(title,time,repeat,covid_data,news):
         update_content += ' news.'
         update_type = 'news'
 
-    return {'title':title, 'content':update_content, 'repeat_time':time, 'type':update_type}
+    return {'title':title, 'content':update_content, 'type':update_type}
 
-def schedule_covid_updates(update_interval, update_name, repeat_request=False):
+def schedule_covid_updates(update_interval:int, update_name:str, repeat_request:bool=False) -> sched.Event:
+    """This function returns a scheduler of a new update.
+
+    Args:
+        update_interval (int): Number of seconds until update should be excecuted
+        update_name (str): Name of the update, i.e. covid data, news or both
+        repeat_request (bool, optional): True if request is repeated. Defaults 
+        to False.
+
+    Returns:
+        sched.Event: Schedulted update event
+    """ 
     return scheduler.enter(update_interval,1,update_excecute,(update_name,repeat_request))
-    scheduler.run(blocking=False)
 
-def update_excecute(update_name, repeat_request):
-    
+def update_excecute(update_name:str, repeat_request:bool):
+    """This function is called by the scheduler when excecuting an update, and 
+    either updates the news, covid data or both, and repeats if necessary.
+
+    Args:
+        update_name (str): Name of update that specifies what should be updates;
+        either 'covid-data', 'news' or 'both'
+        repeat_request (bool): True if update should be repeated
+    """    
     if update_name == 'news' or update_name == 'both':
         for article in range(0,3):
             news.pop(article)   
-        print('news') 
+        logging.info('NEWS') 
     if update_name == 'covid-data' or update_name == 'both':
         data_list = data_gatherer()
-        print('covid data')
+        logging.info('COVID DATA')
     if repeat_request:
         scheduler.enter(86400,1,update_excecute,(update_name,repeat_request))
-        print('repeat')
-        print(scheduler.queue)
+        logging.info('REPEAT')
 
 
-def get_update_seconds(str_time: str):
-    ## takes string of scheduled time from user input on HTML file
-    ## calculates seconds until scheduled time from current time
+def get_update_seconds(str_time: str) -> int:
+    """This function calculates the seconds between the current time and the 
+    scheduled time utelising the datetime module.
 
+    Args:
+        str_time (str): Time of scheduled event taken from user input as a 
+        string
+
+    Returns:
+        int: Returns the seconds until the scheduled event should occur
+    """    
     interval_bin = datetime(1900,1,1)
     update_time = datetime.strptime(str_time, '%H:%M') - interval_bin
     current_time = datetime.now()
     current_timedelta = timedelta(hours=current_time.hour, 
     minutes = current_time.minute, seconds= current_time.second)
 
-    if (update_time >= current_timedelta):
+    if update_time >= current_timedelta:
         update_interval = update_time - current_timedelta
-    if (update_time < current_timedelta):
+    if update_time < current_timedelta:
         update_time+= timedelta(hours=24)
         update_interval = update_time - current_timedelta
     
     print(update_interval.seconds)
     return update_interval.seconds
-
-def order_updates(update: dict):
-    time = update["original_time"].split(':')
-    return_time = int(str(time[0] + str(time[1])))
-    return return_time
 
 if __name__ == "__main__":
     data_list = data_gatherer()
