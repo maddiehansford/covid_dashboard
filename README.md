@@ -34,6 +34,8 @@ Your terminal prompt should now look something like this:
 
 ### 2. Installing requirements:
 
+**NOTE:** Must be in virtual environment before installing.
+
 Install all the requirements from the requirements.txt file:
 ```
 pip3 install -r requirements.txt
@@ -49,12 +51,26 @@ pip3 install pytest
 
 ## Getting started tutorial
 
-**How to run code:**
+### 1. How to run the code:
+
+Enter the following into terminal:
 ```
 python3 flaskapp.py
 ```
 
 Then open http://127.0.0.1:5000/ in chosen web browser.
+
+### 2. How to use the code:
+
+1. Enter the time you'd like an update at into the 'Schedule data updates' box.
+
+2. Tick the 'Repeat update' box if you would like the update to be repeated.
+
+3. Tick either the 'Update Covid data' box, the 'Update news articles' box, or both depending on what you would like updated.
+
+4. Click submit and the update appear in the top left corner, and will occur at your chosen time.
+
+5. Cancel an update or delete a news article by clicking the 'x' in the top right corner of the box.
 
 ## Testing
 
