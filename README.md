@@ -107,6 +107,10 @@ Whether the tests have passed will appear in the terminal.
 
 ## Developer documentation
 
+This can be found at:
+    docs/build/html
+
+Open ***index.html*** in your chosen web browser
 
 ## Details
 

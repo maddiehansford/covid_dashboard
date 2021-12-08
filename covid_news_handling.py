@@ -7,9 +7,10 @@ from flask import Markup
 FORMAT = '%(levelname)s: %(asctime)s: %(message)s'
 logging.basicConfig(filename='log_file.log', format=FORMAT, level=logging.INFO)
 
-with open('config.json') as f:
-    data = json.load(f)
+with open('config.json') as config_file:
+    data = json.load(config_file)
     data = data["keys"]
+
 
 def news_API_request(covid_terms:str = "Covid COVID-19 coronavirus") -> list:
     """This function creates a URL and retrives all the covid articles

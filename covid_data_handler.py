@@ -11,6 +11,7 @@ with open('config.json') as data_file:
     data = json.load(data_file)
     data = data["misc"]
 
+
 def parse_csv_data(csv_filename:str) -> list:
     """This function reads from a csv file and returns the content as a list.
 
@@ -56,8 +57,8 @@ def process_covid_csv_data(covid_csv_data:list) -> tuple:
 
     return last7days_cases, current_hospital_cases, total_deaths
 
-def covid_API_request(location:str = data["location"],
-    location_type:str = data["location_type"]) -> dict:
+def covid_API_request(location:str = data['location'],
+    location_type:str = data['location_type']) -> dict:
     """This function returns live data from the uk-covid19 API.
 
     Args:

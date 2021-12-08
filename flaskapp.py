@@ -1,7 +1,8 @@
 '''Main function that runs the flask app and handles the schedulling of updates'''
 import datetime
 from datetime import timedelta ,datetime
-import sched, time
+import sched
+import time
 import logging
 from flask import Flask, render_template, request, Markup, redirect
 from covid_data_handler import data_gatherer
